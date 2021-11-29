@@ -1,0 +1,26 @@
+{
+  "name": "@ahmedfaaid/head-start",
+  "version": "0.0.1",
+  "description": "A project bootstrapping tool",
+  "main": "src/index.js",
+  "bin": {
+    "@ahmedfaaid/head-start": "bin/head-start",
+    "head-start": "bin/head-start"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cli",
+    "head-start",
+    "bootstrapping"
+  ],
+  "author": "Ahmed Alhassan <ahmedfaaid.coding@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "esm": "^3.2.25"
+  }
+}
