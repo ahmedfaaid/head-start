@@ -14,7 +14,10 @@ async function promptForQuestions() {
       name: 'template',
       message: 'Please select a template',
       choices: ['Vanilla', 'Express'],
-      default: 'Vanilla'
+      default: 'Vanilla',
+      filter: (val: string) => {
+        return val.toLowerCase();
+      }
     },
     {
       type: 'confirm',
@@ -32,7 +35,18 @@ async function promptForQuestions() {
 
   const answers = await inquirer.prompt(questions);
 
-  return { ...answers };
+  let install;
+
+  if (answers.template !== 'vanilla') {
+    install = await inquirer.prompt({
+      type: 'confirm',
+      name: 'install',
+      message: 'Do you want to install dependencies?',
+      default: true
+    });
+  }
+
+  return { ...answers, ...install };
 }
 
 export async function cli() {

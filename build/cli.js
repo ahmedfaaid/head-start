@@ -6,19 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.cli = void 0;
 const path_1 = __importDefault(require("path"));
 const inquirer_1 = __importDefault(require("inquirer"));
-// export function parseArgumentsIntoOptions(rawArgs: any) {
-//   const args = arg({
-//     '--git': Boolean,
-//     '--install': Boolean,
-//     '-g': '--git',
-//     '-i': '--install'
-//   });
-//   return {
-//     git: args['--git'] || false,
-//     projectName: args._[0],
-//     runInstall: args['--install'] || false
-//   };
-// }
 async function promptForQuestions() {
     const questions = [
         {
@@ -32,7 +19,10 @@ async function promptForQuestions() {
             name: 'template',
             message: 'Please select a template',
             choices: ['Vanilla', 'Express'],
-            default: 'Vanilla'
+            default: 'Vanilla',
+            filter: (val) => {
+                return val.toLowerCase();
+            }
         },
         {
             type: 'confirm',
@@ -48,7 +38,16 @@ async function promptForQuestions() {
         }
     ];
     const answers = await inquirer_1.default.prompt(questions);
-    return Object.assign({}, answers);
+    let install;
+    if (answers.template !== 'vanilla') {
+        install = await inquirer_1.default.prompt({
+            type: 'confirm',
+            name: 'install',
+            message: 'Do you want to install dependencies?',
+            default: true
+        });
+    }
+    return Object.assign(Object.assign({}, answers), install);
 }
 async function cli() {
     const answers = await promptForQuestions();
