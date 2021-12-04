@@ -23,12 +23,6 @@ async function promptForQuestions() {
     },
     {
       type: 'confirm',
-      name: 'typescript',
-      message: 'Do you want TypeScript?',
-      default: false,
-    },
-    {
-      type: 'confirm',
       name: 'git',
       message: 'Initialize git?',
       default: true,
@@ -40,12 +34,20 @@ async function promptForQuestions() {
   let install;
 
   if (answers.template !== 'vanilla') {
-    install = await inquirer.prompt({
-      type: 'confirm',
-      name: 'install',
-      message: 'Do you want to install dependencies?',
-      default: true,
-    });
+    install = await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'typescript',
+        message: 'Do you want TypeScript?',
+        default: false,
+      },
+      {
+        type: 'confirm',
+        name: 'install',
+        message: 'Do you want to install dependencies?',
+        default: true,
+      },
+    ]);
   }
 
   return { ...answers, ...install };
