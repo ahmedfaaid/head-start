@@ -14,3 +14,8 @@ head-start
 ## License
 
 MIT
+
+### TODO
+
+[] - options typing
+[] - publish to npm
