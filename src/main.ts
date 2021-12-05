@@ -3,14 +3,28 @@ import fs from 'fs';
 import ncp from 'ncp';
 import path from 'path';
 import { promisify } from 'util';
+import simpleGit, { SimpleGit } from 'simple-git';
+import Listr from 'listr';
+import { projectInstall } from 'pkg-install';
 
 const access = promisify(fs.access);
 const copy = promisify(ncp);
+const git: SimpleGit = simpleGit({ baseDir: process.cwd() });
 
 async function copyTemplateFiles(opt: any) {
   return copy(opt.templateDir, opt.targetDir, {
     clobber: false,
   });
+}
+
+async function gitInit(opt: any) {
+  try {
+    await git.init();
+  } catch (error) {
+    return Promise.reject(new Error('Failed to initialize git repository'));
+  }
+
+  return true;
 }
 
 export async function createProject(opt: any) {
@@ -49,9 +63,27 @@ export async function createProject(opt: any) {
     process.exit(1);
   }
 
-  console.log('Copy project files');
-  await copyTemplateFiles(opt);
+  const tasks = new Listr([
+    {
+      title: 'Copying project files',
+      task: () => copyTemplateFiles(opt),
+    },
+    {
+      title: 'Initializing git repository',
+      task: () => gitInit(opt),
+      enabled: () => opt.git === true,
+    },
+    {
+      title: 'Installing dependencies',
+      task: () =>
+        projectInstall({
+          cwd: opt.targetDir,
+        }),
+      enabled: () => opt.install === true,
+    },
+  ]);
 
+  await tasks.run();
   console.log('%s Project ready', chalk.green.bold('DONE'));
   return true;
 }
