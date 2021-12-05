@@ -2,7 +2,7 @@
   "name": "@ahmedfaaid/head-start",
   "version": "0.0.1",
   "description": "A project bootstrapping tool",
-  "main": "src/index.js",
+  "exports": "./src/cli.ts",
   "bin": {
     "@ahmedfaaid/head-start": "bin/head-start",
     "head-start": "bin/head-start"
@@ -26,7 +26,6 @@
     "arg": "^5.0.1",
     "chalk": "^4.1.2",
     "esm": "^3.2.25",
-    "execa": "^6.0.0",
     "inquirer": "^8.2.0",
     "listr": "^0.14.3",
     "ncp": "^2.0.0",
