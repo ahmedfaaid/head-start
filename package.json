@@ -10,6 +10,11 @@
   "publishConfig": {
     "access": "public"
   },
+  "files": [
+    "bin/",
+    "build/",
+    "templates/"
+  ],
   "scripts": {
     "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
