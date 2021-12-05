@@ -26,6 +26,10 @@ export async function createProject(opt: any) {
     };
   }
 
+  if (opt.typescript) {
+    opt.template = `${opt.template}-typescript`;
+  }
+
   const currentFileUrl = import.meta.url;
   const templateDir = path.resolve(
     new URL(currentFileUrl).pathname,
