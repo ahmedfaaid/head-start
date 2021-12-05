@@ -8,13 +8,13 @@ import Listr from 'listr';
 import { projectInstall } from 'pkg-install';
 const access = promisify(fs.access);
 const copy = promisify(ncp);
-const git = simpleGit({ baseDir: process.cwd() });
 async function copyTemplateFiles(opt) {
     return copy(opt.templateDir, opt.targetDir, {
         clobber: false,
     });
 }
 async function gitInit(opt) {
+    const git = simpleGit({ baseDir: opt.targetDir });
     try {
         await git.init();
     }

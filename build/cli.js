@@ -1,6 +1,7 @@
 import path from 'path';
 import inquirer from 'inquirer';
 import { createProject } from './main';
+// TODO: answers typing
 async function promptForQuestions() {
     const questions = [
         {

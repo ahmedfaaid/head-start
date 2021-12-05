@@ -9,7 +9,6 @@ import { projectInstall } from 'pkg-install';
 
 const access = promisify(fs.access);
 const copy = promisify(ncp);
-const git: SimpleGit = simpleGit({ baseDir: process.cwd() });
 
 async function copyTemplateFiles(opt: any) {
   return copy(opt.templateDir, opt.targetDir, {
@@ -18,6 +17,7 @@ async function copyTemplateFiles(opt: any) {
 }
 
 async function gitInit(opt: any) {
+  const git: SimpleGit = simpleGit({ baseDir: opt.targetDir });
   try {
     await git.init();
   } catch (error) {
