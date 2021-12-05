@@ -17,9 +17,14 @@ export async function createProject(opt) {
     else {
         opt = Object.assign(Object.assign({}, opt), { targetDir: `${process.cwd()}/${opt.name}` });
     }
+    if (opt.typescript) {
+        opt.template = `${opt.template}-typescript`;
+    }
+    console.log('template', opt.template);
     const currentFileUrl = import.meta.url;
     const templateDir = path.resolve(new URL(currentFileUrl).pathname, '../../templates', opt.template);
     opt = Object.assign(Object.assign({}, opt), { templateDir });
+    console.log('template directory', templateDir);
     try {
         await access(templateDir, fs.constants.R_OK);
     }

@@ -30,6 +30,8 @@ export async function createProject(opt: any) {
     opt.template = `${opt.template}-typescript`;
   }
 
+  console.log('template', opt.template);
+
   const currentFileUrl = import.meta.url;
   const templateDir = path.resolve(
     new URL(currentFileUrl).pathname,
@@ -37,6 +39,8 @@ export async function createProject(opt: any) {
     opt.template
   );
   opt = { ...opt, templateDir };
+
+  console.log('template directory', templateDir);
 
   try {
     await access(templateDir, fs.constants.R_OK);
