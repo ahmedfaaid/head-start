@@ -15,7 +15,6 @@ head-start
 
 MIT
 
-### TODO
+### CONTRIBUTORS
 
-[] - options typing
-[] - publish to npm
+- Ahmed Alhassan <ahmedfaaid.coding@gmail.com>
